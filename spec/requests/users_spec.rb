@@ -16,7 +16,7 @@ describe 'Users' do
           first_name: 'Ola',
           last_name: 'Kunle',
           email: 'kunsal@email.com',
-          password: BCrypt::Password.create('abcdef'),
+          password: 'abcdef',
           government_id: 'kdkkdkdkdkdkkd'
         }
       }.to change {User.count}.from(0).to(1)
@@ -31,7 +31,7 @@ describe 'Users' do
         first_name: 'Olakunle',
         last_name: 'Salami',
         email: 'kunsal@email.com',
-        password: BCrypt::Password.create('password'),
+        password:'password',
         government_id: 'blahblahblah.jpg'
       })
       @credentials = {
