@@ -12,13 +12,13 @@ describe 'Users' do
   context 'Register' do
     it 'creates user in the database and returns 201' do
       expect {
-        post '/api/v1/users', params: { user: {
+        post '/api/v1/users', params: {
           first_name: 'Ola',
           last_name: 'Kunle',
           email: 'kunsal@email.com',
           password: BCrypt::Password.create('abcdef'),
           government_id: 'kdkkdkdkdkdkkd'
-        }}
+        }
       }.to change {User.count}.from(0).to(1)
       expect(response).to have_http_status(:created)
       expect(JSON.parse(response.body).keys).to match_array(%w[user token message])
