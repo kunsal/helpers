@@ -70,8 +70,15 @@ describe 'Users' do
 
     it 'should return token when login is successful' do
       post '/api/v1/login', params: @credentials
-      puts response.body.inspect
+      # puts response.body.inspect
       expect(JSON.parse(response.body).keys).to match_array(%w[token exp])
+    end
+  end
+
+  context 'Profile' do
+    it 'should return unauthorized when authorization header is empty' do
+      get '/api/v1/profile'
+      expect(response).to have_http_status(:unauthorized)
     end
   end
 end
