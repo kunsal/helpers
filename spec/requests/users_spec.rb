@@ -80,5 +80,36 @@ describe 'Users' do
       get '/api/v1/profile'
       expect(response).to have_http_status(:unauthorized)
     end
+
+    it 'should return unauthorized when authorization header is invalid' do
+      get '/api/v1/profile', headers: {'Authorization': 'Bearer kdkdkdkdk'}
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    context 'Valid token' do
+      before(:each) do
+        FactoryBot.create(:user, {
+          first_name: 'Olakunle',
+          last_name: 'Salami',
+          email: 'kunsal@email.com',
+          password:'password',
+          government_id: 'blahblahblah.jpg'
+        })
+        user = User.find_by_email('kunsal@email.com')
+        @token = JWT.encode({user_id: user.id}, Rails.application.secrets.secret_key_base, 'HS256')
+      end
+
+      it 'should return ok status when authorization header is valid' do
+        get '/api/v1/profile', headers: {'Authorization': 'Bearer ' + @token}
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'should return user data with attributes' do
+        get '/api/v1/profile', headers: {'Authorization': 'Bearer ' + @token}
+        puts(response.body.inspect)
+        expect(JSON.parse(response.body).keys).to match_array(%w[user])
+      end
+    end
+
   end
 end

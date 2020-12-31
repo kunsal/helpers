@@ -1,5 +1,5 @@
 class Api::V1::ProfileController < AuthBaseController
   def index
-    render json: { name: 'Olakunle' }, status: :ok
+    render json: {user: logged_in_user}, status: :ok
   end
 end
