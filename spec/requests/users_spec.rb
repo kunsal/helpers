@@ -70,7 +70,6 @@ describe 'Users' do
 
     it 'should return token when login is successful' do
       post '/api/v1/login', params: @credentials
-      # puts response.body.inspect
       expect(JSON.parse(response.body).keys).to match_array(%w[token exp])
     end
   end
@@ -88,14 +87,8 @@ describe 'Users' do
 
     context 'Valid token' do
       before(:each) do
-        FactoryBot.create(:user, {
-          first_name: 'Olakunle',
-          last_name: 'Salami',
-          email: 'kunsal@email.com',
-          password:'password',
-          government_id: 'blahblahblah.jpg'
-        })
-        user = User.find_by_email('kunsal@email.com')
+        user = FactoryBot.create(:user)
+        # user = User.find_by_email('kunsal@email.com')
         @token = JWT.encode({user_id: user.id}, Rails.application.secrets.secret_key_base, 'HS256')
       end
 
@@ -106,7 +99,6 @@ describe 'Users' do
 
       it 'should return user data with attributes' do
         get '/api/v1/profile', headers: {'Authorization': 'Bearer ' + @token}
-        puts(response.body.inspect)
         expect(JSON.parse(response.body).keys).to match_array(%w[user])
       end
     end
