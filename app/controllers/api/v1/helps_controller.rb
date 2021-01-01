@@ -1,6 +1,13 @@
 class Api::V1::HelpsController < AuthBaseController
+  def index
+    @help = Help.all
+    # @user = @help.user
+    puts @help.inspect
+    render json: @help, status: :ok
+  end
+
   def create
-    @help = Help.create(help_params)
+    @help = logged_in_user.helps.create(help_params)
     if @help.save
       render json: @help, status: :created
     else

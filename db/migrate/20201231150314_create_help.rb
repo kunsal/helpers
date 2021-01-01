@@ -4,7 +4,7 @@ class CreateHelp < ActiveRecord::Migration[6.0]
       t.string :title
       t.text :description
       t.integer :category_id
-      t.integer :user_id
+      t.belongs_to :user
       t.string :location
       t.boolean :status, default: 0
       t.timestamps

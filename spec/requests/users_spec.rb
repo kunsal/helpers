@@ -27,15 +27,9 @@ describe 'Users' do
 
   context 'Login' do
     before(:each) do
-      FactoryBot.create(:user, {
-        first_name: 'Olakunle',
-        last_name: 'Salami',
-        email: 'kunsal@email.com',
-        password:'password',
-        government_id: 'blahblahblah.jpg'
-      })
+      FactoryBot.create(:user)
       @credentials = {
-        email: 'kunsal@email.com', password: 'password'
+        email: 'johndoe@email.com', password: 'password'
       }
     end
 
@@ -88,7 +82,6 @@ describe 'Users' do
     context 'Valid token' do
       before(:each) do
         user = FactoryBot.create(:user)
-        # user = User.find_by_email('kunsal@email.com')
         @token = JWT.encode({user_id: user.id}, Rails.application.secrets.secret_key_base, 'HS256')
       end
 
