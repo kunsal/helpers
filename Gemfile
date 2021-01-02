@@ -58,3 +58,4 @@ gem 'rack-cors'
 gem 'jwt'
 
 gem 'simplecov', require: false, group: :test
+gem 'coveralls', require: false
