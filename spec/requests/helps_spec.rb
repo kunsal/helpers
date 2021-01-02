@@ -64,17 +64,35 @@ describe 'Help' do
         end
 
         it 'returns a list of helps with valid authorization' do
-          FactoryBot.create :help
+          @help_data['user_id'] = @user.id
+          FactoryBot.create :help, @help_data
           get @help_url, headers: {'Authorization': 'Bearer ' + @token}
           expect(response).to have_http_status(:ok)
           expect(JSON.parse(response.body).count).to eq 1
+          expect(JSON.parse(response.body).first.keys).to include("title")
         end
 
-        it 'returns user with help when fetching' do
-          FactoryBot.create :help
-          get @help_url, headers: {'Authorization': 'Bearer ' + @token}
+        it 'returns only logged in user\'s own helps' do
+          @help_data['user_id'] = @user.id
+          FactoryBot.create :help, @help_data
+          user2 = FactoryBot.create :user, {
+            first_name: 'Ola',
+            last_name: 'Kay',
+            email: 'kay@email.com',
+            password: 'abcdefg',
+            government_id: 'image.jpg'
+          }
+          help_data2 = {
+            title: 'Second help',
+            description: 'This is a very good description',
+            category_id: 1,
+            user_id: user2.id,
+            location: '33.2, 103.02'
+          }
+          FactoryBot.create :help, help_data2
+          get @help_url + '/me', headers: {'Authorization': 'Bearer ' + @token}
           expect(response).to have_http_status(:ok)
-          # expect(JSON.parse(response.body).first.keys).to include("user")
+          expect(JSON.parse(response.body).count).to eq 1
         end
       end
     end

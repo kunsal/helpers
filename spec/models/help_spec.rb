@@ -2,14 +2,7 @@ require 'rails_helper'
 
 describe 'Help', type: :model do
   before(:each) do
-    @help = FactoryBot.create(:help, {
-      title: 'Help me',
-      description: 'This is a sample description',
-      category_id: 1,
-      location: '35.4,108.1',
-      status: 1,
-      user_id: 1
-    })
+    @help = FactoryBot.create(:help)
   end
   context 'Validations' do
     it 'ensures that title is present' do

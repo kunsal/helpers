@@ -1,9 +1,9 @@
 class Api::V1::HelpsController < AuthBaseController
   def index
-    @help = Help.all
+    @helps = Help.all.includes(:user)
     # @user = @help.user
     # puts @help.inspect
-    render json: @help, status: :ok
+    render json: @helps, status: :ok
   end
 
   def create
@@ -13,6 +13,11 @@ class Api::V1::HelpsController < AuthBaseController
     else
       render json: @help.errors, status: :unprocessable_entity
     end
+  end
+
+  def me
+    @helps = logged_in_user.helps
+    render json: @helps, status: :ok
   end
 
   private def help_params

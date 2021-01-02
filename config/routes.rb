@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       post 'login', to: 'auth#login'
       get 'profile', to: 'profile#index'
       resources :helps, only: ['create', 'index']
+      get 'helps/me', to: 'helps#me'
     end
   end
 end
