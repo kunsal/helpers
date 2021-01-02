@@ -5,8 +5,8 @@ class Api::V1::UsersController < ApplicationController
       data = {user_id: user.id}
       jwt = JWT.encode data, Rails.application.secret_key_base
       render json: {user: user, message: 'User created successfully', token: jwt}, status: :created
-    # else
-    #   render json: user.errors, status: :unprocessable_entity
+    else
+      render json: user.errors, status: :unprocessable_entity
     end
   end
 

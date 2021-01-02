@@ -10,11 +10,10 @@ describe 'Users' do
   end
 
   context 'Register' do
-    # it 'return unprocessable_entity error (422) when required fields are not present' do
-    #   post '/api/v1/users', params: {}
-    #   expect(response).to have_http_status(:unprocessable_entity)
-    #   expect(response).to raise_error
-    # end
+    it 'return unprocessable_entity error (422) when required fields are not present' do
+      post '/api/v1/users', params: {}
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
 
     it 'creates user in the database and returns 201' do
       expect {

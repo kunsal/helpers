@@ -33,6 +33,11 @@ describe 'Help' do
         @token = JWT.encode({user_id: @user.id}, Rails.application.secrets.secret_key_base, 'HS256')
       end
 
+      it 'return unprocessable_entity error (422) when required fields are not present' do
+        post @help_url, params: {}, headers: {'Authorization': 'Bearer ' + @token}
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
       it 'creates help and returns 201 created' do
         # @help_data['user_id'] = @user.id
         expect {
