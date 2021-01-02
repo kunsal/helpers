@@ -2,7 +2,7 @@ class Api::V1::HelpsController < AuthBaseController
   def index
     @help = Help.all
     # @user = @help.user
-    puts @help.inspect
+    # puts @help.inspect
     render json: @help, status: :ok
   end
 
