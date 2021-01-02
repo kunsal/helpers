@@ -58,4 +58,5 @@ gem 'rack-cors'
 gem 'jwt'
 
 gem 'simplecov', require: false, group: :test
-gem 'coveralls', require: false
+# gem 'coveralls', require: false
+gem 'coveralls_reborn', '~> 0.19.0', require: false
