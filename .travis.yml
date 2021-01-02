@@ -11,6 +11,6 @@ before_script:
 #  - yarn
   - bundle exec rake db:create
   - bundle exec rake db:schema:load
-  - rails db:migrate RAIL_ENV=test
+  - bundle exec rake db:migrate RAIL_ENV=test
 script:
   - rspec
