@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Category' do
+describe 'Category', type: :model do
   context 'validations' do
     before :each do
       @category = FactoryBot.create :category

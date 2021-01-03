@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'profile', to: 'profile#index'
       resources :helps, only: ['create', 'index']
       get 'helps/me', to: 'helps#me'
+      get 'categories', to: 'categories#index'
     end
   end
 end
