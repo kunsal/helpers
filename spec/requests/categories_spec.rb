@@ -17,7 +17,7 @@ describe 'Categories', type: :request do
 
     it 'returns category by id' do
       get '/api/v1/categories/1'
-      expect(JSON.parse(response.body).keys).to match_array %w(name color id created_at updated_at)
+      expect(JSON.parse(response.body).keys).to include("name", "color")
     end
 
     it 'returns helps in category by id' do
@@ -31,8 +31,7 @@ describe 'Categories', type: :request do
       }
       FactoryBot.create :help, help_data
       get '/api/v1/categories/1/helps'
-      expect(JSON.parse(response.body).first.keys).to match_array(
-        %w(title description user_id category_id id location status created_at updated_at))
+      expect(JSON.parse(response.body).first.keys).to include('title', 'description', 'user_id', 'category_id')
     end
   end
 end

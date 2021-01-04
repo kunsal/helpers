@@ -69,7 +69,7 @@ describe 'Users' do
 
     it 'should return token when login is successful' do
       post '/api/v1/login', params: @credentials
-      expect(JSON.parse(response.body).keys).to match_array(%w[token exp])
+      expect(JSON.parse(response.body).keys).to match_array(%w[token])
     end
   end
 

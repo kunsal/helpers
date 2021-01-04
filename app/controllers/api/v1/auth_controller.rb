@@ -6,10 +6,10 @@ class Api::V1::AuthController < ApplicationController
     user = User.find_by_email(params[:email])
 
     if user &. authenticate(params[:password])
-      payload = {user_id: user.id}
+      expiry_date = (Time.now + 2.days).to_i
+      payload = {user_id: user.id, exp: expiry_date}
       token = JWT.encode payload, Rails.application.secrets.secret_key_base, 'HS256'
-      expiry_date = Time.now + 2.days.to_i
-      render json: {token: token, exp: expiry_date.strftime("%m-%d-%Y %H:%M")}
+      render json: {token: token}, status: :ok
     else
       render json: {message: 'Invalid login credentials'}, status: :unauthorized
     end
