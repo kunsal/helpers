@@ -20,6 +20,6 @@ deploy:
   app: kunsal-helpers
   run:
     - "bundle install"
-    - "rake db:create"
-    - "rake db:schema:load"
-    - "rake db:migrate RAILS_ENV=development"
+    - "bundle exec rake db:create"
+    - "bundle exec rake db:schema:load"
+    - "bundle exec rake db:migrate RAILS_ENV=development"
