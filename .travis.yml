@@ -18,7 +18,7 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: ${HEROKU_API_KEY}
+    secure: "WMkWLn9dBHl2z0f8IFS6O1GLWqTQ43KEOlxkNwFMiRFOjfjqPlF7K/uulTBjGbRO82HIjSyeVq8XC3Khw8RKvY2mtK+IjMslE19Gmv3cxKb9Sk1es3a+H7JfuBRbIyfvFaPRSczDST1Enp8720EOnTfV5OfQS5LPgqSZX7tu9Xqqq1XuUsrXAsspcNq7kwC3okjrRYCpVoS84iRKy5X9iV6pGNaF6VZhqZyxe9IZVc/r/Bh7b2PB/9dNGN/MJyYd1Qh6atjllKWvAf0d1oU/7dwoVtovNQX6mcjKa8rZhP/zUkp6RlYW9WP6vIL4l12xD/fR+hAKoOUAkiH/ZC/4yTR11LoRscnyFO8+jD77ihWJI9xNIH2oyXCwdbRJbrzwdW/0GxWLM41IwHX3nMfJ5w+xyRcmWLJmsfFw0Tv8jiD7Bw3MQrMvUry/G4mMRZFVoK/JC99s0U2CXXpKeSFUKeyFLcTASpvmxS7kgGLwAYx9e1qmm8ZcpNm1cL9ehT+eJAJD92FTOHbCesxjMBTez7Qr2BmQwDZEJjvfE2o+MuHUtbmh0ocHY7JEBMGQUcPKCGmh1McLAU/S1NPyJa//6o8ZYp1YNZZHd1DEYHYRi2wrjuMqIVjBsbnd3dqKo7e5ntBk6V3temxNu0mMeJB7zFs0lMGIhDEQux4zrKaIqvc="
   app: kunsal-helpers
 #  run:
 #    - "bundle install"
