@@ -65,4 +65,4 @@ gem 'jwt'
 gem 'simplecov', require: false, group: :test
 # gem 'coveralls', require: false
 gem 'coveralls_reborn', '~> 0.19.0', require: false
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', groups: [:test]
