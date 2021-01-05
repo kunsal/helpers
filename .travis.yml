@@ -18,8 +18,8 @@ deploy:
   provider: heroku
   api_key: ${HEROKU_API_KEY}
   app: kunsal-helpers
-  run:
-    - "bundle install"
-    - "bundle exec rake db:create"
-    - "bundle exec rake db:schema:load"
-    - "bundle exec rake db:migrate RAILS_ENV=development"
+#  run:
+#    - "bundle install"
+#    - "bundle exec rake db:create"
+#    - "bundle exec rake db:schema:load"
+#    - "bundle exec rake db:migrate RAILS_ENV=development"
