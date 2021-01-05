@@ -16,4 +16,10 @@ script:
   - bundle exec rake spec
 deploy:
   provider: heroku
-  api_key:
+  api_key: ${HEROKU_API_KEY}
+  app: kunsal-helpers
+  run:
+    - "bundle install"
+    - "rake db:create"
+    - "rake db:schema:load"
+    - "rake db:migrate RAILS_ENV=development"
