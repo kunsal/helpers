@@ -21,8 +21,5 @@ deploy:
   app: kunsal-helpers
   on:
     repo: kunsal/helpers
-#  run:
-#    - "bundle install"
-#    - "bundle exec rake db:create"
-#    - "bundle exec rake db:schema:load"
-#    - "bundle exec rake db:migrate RAILS_ENV=development"
+  run:
+    - "bundle exec rake db:migrate RAILS_ENV=development"
