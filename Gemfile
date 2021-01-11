@@ -33,10 +33,10 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.0'
   gem 'factory_bot_rails'
 end
-
-group :development, :production do
-  gem 'pg'
-end
+gem 'pg'
+# group :production do
+#
+# end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -47,7 +47,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-group :test do
+group :test, :development do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '~> 1.4'
   # Adds support for Capybara system testing and selenium driver
@@ -65,4 +65,4 @@ gem 'jwt'
 gem 'simplecov', require: false, group: :test
 # gem 'coveralls', require: false
 gem 'coveralls_reborn', '~> 0.19.0', require: false
-gem 'dotenv-rails', groups: [:test]
+# gem 'dotenv-rails', groups: [:test]
