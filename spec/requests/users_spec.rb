@@ -24,7 +24,7 @@ describe 'Users' do
           password: 'abcdef',
           government_id: 'kdkkdkdkdkdkkd'
         }
-      }.to change {User.count}.from(3).to(4)
+      }.to change {User.count}.from(0).to(1)
       expect(response).to have_http_status(:created)
       expect(JSON.parse(response.body).keys).to match_array(%w[user token message])
     end
@@ -32,7 +32,7 @@ describe 'Users' do
 
   context 'Login' do
     before(:each) do
-      FactoryBot.create(:user)
+      user = FactoryBot.create(:user)
       @credentials = {
         email: 'johndoe@email.com', password: 'password'
       }

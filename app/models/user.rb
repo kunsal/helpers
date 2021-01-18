@@ -1,13 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
-  after_initialize :hide_columns
 
-  def hide_columns
-    [:password].each do |c|
-      send("#{c}=", send(c))
-      send("#{c}=", nil)
-    end
-  end
   has_many :helps, dependent: :destroy
 
   validates :first_name, presence: true, length: {minimum: 2}
