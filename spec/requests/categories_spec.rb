@@ -16,7 +16,7 @@ describe 'Categories', type: :request do
     end
 
     it 'returns category by id' do
-      get '/api/v1/categories/1'
+      get '/api/v1/categories/' + @category.id.to_s
       expect(JSON.parse(response.body).keys).to include("name", "color")
     end
 
@@ -30,7 +30,7 @@ describe 'Categories', type: :request do
         location: '33.2, 103.02'
       }
       FactoryBot.create :help, help_data
-      get '/api/v1/categories/1/helps'
+      get '/api/v1/categories/'+@category.id.to_s+'/helps'
       expect(JSON.parse(response.body).first.keys).to include('title', 'description', 'user_id', 'category_id')
     end
   end

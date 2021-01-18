@@ -3,11 +3,11 @@ require 'rails_helper'
 describe 'Help' do
   before do
     @help_url = '/api/v1/helps'
-    category = FactoryBot.create :category
+    @category = FactoryBot.create :category
     @help_data = {
       title: 'This title',
       description: 'This is a very good description',
-      category_id: category.id,
+      category_id: @category.id,
       user_id: 1,
       location: '23.8, 109.02'
     }
@@ -86,7 +86,7 @@ describe 'Help' do
           help_data2 = {
             title: 'Second help',
             description: 'This is a very good description',
-            category_id: 1,
+            category_id: @category.id,
             user_id: user2.id,
             location: '33.2, 103.02'
           }
