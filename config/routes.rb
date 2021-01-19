@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get 'helps/me', to: 'helps#me'
       resources :categories, only: ['index', 'show']
       get 'categories/:id/helps', to: 'categories#helps'
+      mount ActionCable.server => '/cable'
     end
   end
 end

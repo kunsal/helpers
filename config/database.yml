@@ -13,7 +13,7 @@ default: &default
 development:
   <<: *default
   database:
-    url: <%= ENV('DATABASE_URL') %>>
+    url: <%= ENV['DATABASE_URL'] %>>
   adapter: postgresql
   encoding: unicode
 
