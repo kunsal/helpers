@@ -2,6 +2,8 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :helps, dependent: :destroy
+  has_many :messages
+  has_many :rooms, through: :messages
 
   validates :first_name, presence: true, length: {minimum: 2}
   validates :last_name, presence: true, length: {minimum: 2}

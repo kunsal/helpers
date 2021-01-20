@@ -1,6 +1,7 @@
 class Help < ApplicationRecord
   belongs_to :user
   belongs_to :category
+  has_many :rooms
 
   validates :title, presence: true, length: {minimum: 6}
   validates :description, presence: true, length: {minimum: 20}

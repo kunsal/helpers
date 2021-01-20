@@ -9,6 +9,8 @@ class Api::V1::HelpsController < AuthBaseController
   def create
     @help = logged_in_user.helps.create(help_params)
     if @help.save
+      # create corresponding chat room
+      Room.create(name: @help.title, help_id: @help.id)
       render json: @help, status: :created
     else
       render json: @help.errors, status: :unprocessable_entity
