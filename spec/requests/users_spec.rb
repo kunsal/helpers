@@ -26,7 +26,7 @@ describe 'Users' do
         }
       }.to change {User.count}.from(0).to(1)
       expect(response).to have_http_status(:created)
-      expect(JSON.parse(response.body).keys).to match_array(%w[user token message])
+      expect(JSON.parse(response.body).keys).to match_array(%w[token message])
     end
   end
 
