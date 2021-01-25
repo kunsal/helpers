@@ -97,7 +97,10 @@ describe 'Users' do
 
       it 'should return user data with attributes' do
         get '/api/v1/profile', headers: {'Authorization': 'Bearer ' + @token}
-        expect(JSON.parse(response.body).keys).to match_array(%w[user])
+        p JSON.parse(response.body).keys
+        expect(JSON.parse(response.body).keys).to match_array(
+          %w[id first_name last_name email government_id created_at updated_at]
+        )
       end
     end
 
