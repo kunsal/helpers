@@ -31,7 +31,7 @@ describe 'Categories', type: :request do
       }
       FactoryBot.create :help, help_data
       get '/api/v1/categories/'+@category.id.to_s+'/helps'
-      expect(JSON.parse(response.body).first.keys).to include('title', 'description', 'user_id', 'category_id')
+      expect(JSON.parse(response.body).first.keys).to include('title', 'description', 'user')
     end
   end
 end
