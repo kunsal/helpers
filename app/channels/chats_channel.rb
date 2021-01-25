@@ -1,6 +1,7 @@
 class HelpsChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "helps_channel"
+    @helps = Help.includes :user, :category
+    stream_for @help
   end
 
   def unsubscribed
