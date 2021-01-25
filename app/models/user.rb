@@ -9,11 +9,4 @@ class User < ApplicationRecord
   validates :password, presence: true, length: {minimum: 6}
   validates :government_id, presence: true
 
-  def appear
-    p 'Online'
-  end
-
-  def disappear
-    p 'Offline'
-  end
 end

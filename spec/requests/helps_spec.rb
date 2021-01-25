@@ -69,8 +69,10 @@ describe 'Help' do
           FactoryBot.create :help, @help_data
           get @help_url, headers: {'Authorization': 'Bearer ' + @token}
           expect(response).to have_http_status(:ok)
-          expect(JSON.parse(response.body).count).to eq 1
-          expect(JSON.parse(response.body).first.keys).to include("title")
+          help_object = JSON.parse(response.body)
+          expect(help_object.count).to eq 1
+          expect(help_object.first.keys).to include("title", "user", "category")
+          # expect(help_object.first.user.count).to eq 1
         end
 
         it 'returns only logged in user\'s own helps' do
@@ -94,6 +96,7 @@ describe 'Help' do
           get @help_url + '/me', headers: {'Authorization': 'Bearer ' + @token}
           expect(response).to have_http_status(:ok)
           expect(JSON.parse(response.body).count).to eq 1
+          expect(JSON.parse(response.body).first.keys).to include("title", "category")
         end
       end
     end

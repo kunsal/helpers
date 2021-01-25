@@ -1,9 +1,7 @@
 class Api::V1::HelpsController < AuthBaseController
   def index
-    @helps = Help.all.includes(:user)
-    # @user = @help.user
-    # puts @help.inspect
-    render json: @helps, status: :ok
+    @helps = Help.includes(:user, :category)
+    render json: @helps.as_json(include: {:user => {except: :password_digest}, :category => {only: [:name, :color]}}), status: :ok
   end
 
   def create
@@ -17,7 +15,7 @@ class Api::V1::HelpsController < AuthBaseController
 
   def me
     @helps = logged_in_user.helps
-    render json: @helps, status: :ok
+    render json: @helps.as_json(include: {:category => {only: [:name, :color]}}), status: :ok
   end
 
   private def help_params
