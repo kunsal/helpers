@@ -1,3 +1,5 @@
+include TokenHelper
+
 class AuthBaseController < ApplicationController
   before_action :authorized
 
@@ -9,9 +11,8 @@ class AuthBaseController < ApplicationController
   def decoded_token
     if auth_header
       token = auth_header.split(' ')[1]
-      # header: { 'Authorization': 'Bearer <token>' }
       begin
-        JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: 'HS256')
+        TokenHelper.decode token
       rescue JWT::DecodeError
         nil
       end

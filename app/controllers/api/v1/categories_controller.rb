@@ -12,7 +12,7 @@ class Api::V1::CategoriesController < ApplicationController
 
   def helps
     @category = Category.find(params[:id])
-    @helps = @category.helps
-    render json: @helps, status: :ok
+    @helps = @category.helps.includes :user
+    render json: @helps.as_json(include: {:user => {except: :password_digest}}), status: :ok
   end
 end

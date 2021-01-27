@@ -26,7 +26,7 @@ describe 'Users' do
         }
       }.to change {User.count}.from(0).to(1)
       expect(response).to have_http_status(:created)
-      expect(JSON.parse(response.body).keys).to match_array(%w[user token message])
+      expect(JSON.parse(response.body).keys).to match_array(%w[token message])
     end
   end
 
@@ -97,7 +97,10 @@ describe 'Users' do
 
       it 'should return user data with attributes' do
         get '/api/v1/profile', headers: {'Authorization': 'Bearer ' + @token}
-        expect(JSON.parse(response.body).keys).to match_array(%w[user])
+        p JSON.parse(response.body).keys
+        expect(JSON.parse(response.body).keys).to match_array(
+          %w[id first_name last_name email government_id created_at updated_at]
+        )
       end
     end
 

@@ -1,3 +1,5 @@
+include TokenHelper
+
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
     identified_by :current_user
@@ -7,6 +9,7 @@ module ApplicationCable
     end
 
     private
+<<<<<<< HEAD
     def find_verified_user
       begin
         token = request.headers[:HTTP_SEC_WEBSOCKET_PROTOCOL].split(' ').last
@@ -20,5 +23,20 @@ module ApplicationCable
         reject_unauthorized_connection
       end
     end
+=======
+      def find_verified_user
+        begin
+          token = request.query_parameters['token']
+          decoded_token = TokenHelper.decode token
+          if (current_user = User.find(decoded_token[0]['user_id']))
+            current_user
+          else
+            reject_unauthorized_connection
+          end
+        rescue
+          reject_unauthorized_connection
+        end
+      end
+>>>>>>> master
   end
 end
