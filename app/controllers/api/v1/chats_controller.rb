@@ -1,6 +1,7 @@
 class Api::V1::ChatsController < AuthBaseController
   def create
     chat = Chat.create chat_params
+    p chat
     help = Help.find(chat_params[:help_id])
     if chat.save
       ChatsChannel.broadcast_to(help, chat.to_json(include: user_relation))
