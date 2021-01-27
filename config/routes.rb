@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :categories, only: ['index', 'show']
       get 'categories/:id/helps', to: 'categories#helps'
       resources :chats, only: ['create']
+      get 'chats/help/:help_id', to: 'chats#fetch_for_help'
     end
   end
 end
