@@ -75,6 +75,15 @@ describe 'Help' do
           # expect(help_object.first.user.count).to eq 1
         end
 
+        it 'returns help by id' do
+          @help_data['user_id'] = @user.id
+          FactoryBot.create :help, @help_data
+          get @help_url + '/' + @help_data['id'].to_s, headers: {'Authorization': 'Bearer ' + @token}
+          expect(response).to have_http_status(:ok)
+          help_object = JSON.parse(response.body)
+          expect(help_object.keys).to include("title", "user", "category")
+        end
+
         it 'returns only logged in user\'s own helps' do
           @help_data['user_id'] = @user.id
           FactoryBot.create :help, @help_data
