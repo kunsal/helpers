@@ -8,8 +8,8 @@ Rails.application.routes.draw do
       resources :users, only: ['create']
       post 'login', to: 'auth#login'
       get 'profile', to: 'profile#index'
-      resources :helps, only: ['create', 'index', 'show']
       get 'helps/me', to: 'helps#me'
+      resources :helps, only: ['create', 'index', 'show']
       resources :categories, only: ['index', 'show']
       get 'categories/:id/helps', to: 'categories#helps'
       resources :chats, only: ['create']

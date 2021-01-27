@@ -6,6 +6,7 @@ class CreateHelp < ActiveRecord::Migration[6.0]
       t.integer :category_id
       t.belongs_to :user
       t.string :location
+      t.integer :fulfilment_count, default: 0
       t.boolean :status, default: 0
       t.timestamps
     end

@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 2021_01_25_160044) do
 
   # These are extensions that must be enabled in order to support this database
@@ -26,9 +25,11 @@ ActiveRecord::Schema.define(version: 2021_01_25_160044) do
   create_table "chats", force: :cascade do |t|
     t.text "message"
     t.bigint "help_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["help_id"], name: "index_chats_on_help_id"
+    t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
   create_table "helps", force: :cascade do |t|
@@ -36,27 +37,13 @@ ActiveRecord::Schema.define(version: 2021_01_25_160044) do
     t.text "description"
     t.bigint "user_id"
     t.string "location"
+    t.integer "fulfilment_count", default: 0
     t.boolean "status", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "category_id"
     t.index ["category_id"], name: "index_helps_on_category_id"
     t.index ["user_id"], name: "index_helps_on_user_id"
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "room_id"
-    t.text "content"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "rooms", force: :cascade do |t|
-    t.string "name"
-    t.integer "help_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

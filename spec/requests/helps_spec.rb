@@ -1,4 +1,5 @@
 require 'rails_helper'
+include TokenHelper
 
 describe 'Help' do
   before do
@@ -31,7 +32,7 @@ describe 'Help' do
     context 'Authorized user' do
       before(:each) do
         @user = FactoryBot.create(:user)
-        @token = JWT.encode({user_id: @user.id}, Rails.application.secrets.secret_key_base, 'HS256')
+        @token = TokenHelper.generate(@user)
       end
 
       it 'return unprocessable_entity error (422) when required fields are not present' do
@@ -61,7 +62,7 @@ describe 'Help' do
       context 'Valid Authentication' do
         before :each do
           @user = FactoryBot.create(:user)
-          @token = JWT.encode({user_id: @user.id}, Rails.application.secrets.secret_key_base, 'HS256')
+          @token = TokenHelper.generate(@user)
         end
 
         it 'returns a list of helps with valid authorization' do
@@ -81,7 +82,7 @@ describe 'Help' do
           get @help_url + '/' + @help_data['id'].to_s, headers: {'Authorization': 'Bearer ' + @token}
           expect(response).to have_http_status(:ok)
           help_object = JSON.parse(response.body)
-          expect(help_object.keys).to include("title", "user", "category")
+          expect(help_object.first.keys).to include("title", "user", "category")
         end
 
         it 'returns only logged in user\'s own helps' do

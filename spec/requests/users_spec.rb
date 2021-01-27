@@ -1,4 +1,5 @@
 require 'rails_helper'
+include TokenHelper
 
 describe 'Users' do
   before do
@@ -87,7 +88,7 @@ describe 'Users' do
     context 'Valid token' do
       before(:each) do
         user = FactoryBot.create(:user)
-        @token = JWT.encode({user_id: user.id}, Rails.application.secrets.secret_key_base, 'HS256')
+        @token = TokenHelper.generate(user)
       end
 
       it 'should return ok status when authorization header is valid' do
@@ -97,7 +98,6 @@ describe 'Users' do
 
       it 'should return user data with attributes' do
         get '/api/v1/profile', headers: {'Authorization': 'Bearer ' + @token}
-        p JSON.parse(response.body).keys
         expect(JSON.parse(response.body).keys).to match_array(
           %w[id first_name last_name email government_id created_at updated_at]
         )
