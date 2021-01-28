@@ -16,6 +16,11 @@ class ChatsChannel < ApplicationCable::Channel
     # self.broadcast_to(@help, data)
   end
 
+  def typing(data)
+    p data
+    data
+  end
+
   private
     def user_relation
       {:user => {only: [:first_name, :last_name]}}
