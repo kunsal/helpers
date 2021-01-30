@@ -14,10 +14,6 @@ describe 'Help' do
     }
   end
 
-  after do
-    # Do nothing
-  end
-
   context 'Create new' do
     it 'returns unauthorized if user authorization header is missing' do
       post @help_url, params: @help_data, headers: {}

@@ -66,5 +66,20 @@ describe 'Chat' do
       saved_help = Help.find(@help.id)
       expect(saved_help.fulfilment_count).to be 0
     end
+
+    it 'should mark help as complete if fulfilment count is equal to 5' do
+      @volunteer2 = FactoryBot.create :user, {email: 'volunteer@email.com'}
+      @volunteer2_token = TokenHelper.generate(@volunteer2)
+      help = FactoryBot.create(:help, {
+        fulfilment_count: 4,
+        category_id: @category.id,
+        user_id: @user.id,
+      })
+      post '/api/v1/chats', params: {message: 'hello', help_id: help.id, user_id: @volunteer2.id}, headers: {'Authorization': 'Bearer ' + @volunteer2_token}
+      saved_help = Help.find(help.id)
+      expect(saved_help.fulfilment_count).to be 5
+      expect(saved_help.status).to be true
+    
+    end
   end
 end
