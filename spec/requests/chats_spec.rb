@@ -2,13 +2,13 @@ include TokenHelper
 
 describe 'Chat' do
   before do
-    user = FactoryBot.create(:user, {email: 'newuser@email.com', first_name: 'new', last_name: 'user'})
-    category = FactoryBot.create :category
+    @requester = FactoryBot.create(:user, {email: 'newuser@email.com', first_name: 'new', last_name: 'user'})
+    @category = FactoryBot.create :category
     @help = FactoryBot.create(:help, {
       title: 'This title',
       description: 'This is a very good description',
-      category_id: category.id,
-      user_id: user.id,
+      category_id: @category.id,
+      user_id: @requester.id,
       location: '23.8, 109.02'
     })
     @user = FactoryBot.create(:user)
@@ -17,7 +17,7 @@ describe 'Chat' do
   
   
   it 'saves message to database' do
-    post '/api/v1/chats', params: {message: 'hello', help_id: @help.id, user_id: @user.id} , headers: {'Authorization': 'Bearer ' + @token}
+    post '/api/v1/chats', params: {message: 'hello', help_id: @help.id, user_id: @user.id}, headers: {'Authorization': 'Bearer ' + @token}
     expect(response).to have_http_status :created
     expect(JSON.parse(response.body).keys).to include("message", "user")
   end
@@ -30,5 +30,41 @@ describe 'Chat' do
     get "/api/v1/chats/help/#{@help.id}", headers: {'Authorization': 'Bearer ' + @token}
     expect(response).to have_http_status :ok
     expect(JSON.parse(response.body).first.keys).to include("message", "user")
+  end
+
+  context 'when chatting' do
+
+    before :each do
+      @volunteer = FactoryBot.create :user, {email: 'new@email.com'}
+      @volunteer_token = TokenHelper.generate(@volunteer)
+    end
+
+    it 'should increment fulfillment count of help if new user sends message' do
+      post '/api/v1/chats', params: {message: 'hi', help_id: @help.id, user_id: @volunteer.id}, headers: {'Authorization': 'Bearer ' + @volunteer_token}
+      expect(response).to have_http_status :created
+      help = Help.find(@help.id)
+      expect(help.fulfilment_count).to be 1
+    end
+
+    it 'should not increment fulfillment count if user has already sent a message' do
+      help = FactoryBot.create(:help, {
+        title: 'Another title',
+        description: 'This is a very good description',
+        category_id: @category.id,
+        user_id: @user.id,
+        location: '23.8, 109.02',
+        fulfilment_count: 1
+      })
+      FactoryBot.create :chat, {help_id: help.id, user_id: @volunteer.id}
+      post '/api/v1/chats', params: {message: 'hello', help_id: help.id, user_id: @volunteer.id}, headers: {'Authorization': 'Bearer ' + @volunteer_token}
+      saved_help = Help.find(help.id)
+      expect(saved_help.fulfilment_count).to be 1
+    end
+
+    it 'should not increment fulfilment count if user is the requester' do
+      post '/api/v1/chats', params: {message: 'I need help', help_id: @help.id, user_id: @requester.id}, headers: {'Authorization': 'Bearer ' + @token}
+      saved_help = Help.find(@help.id)
+      expect(saved_help.fulfilment_count).to be 0
+    end
   end
 end

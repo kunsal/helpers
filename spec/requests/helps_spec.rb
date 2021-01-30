@@ -65,9 +65,11 @@ describe 'Help' do
           @token = TokenHelper.generate(@user)
         end
 
-        it 'returns a list of helps with valid authorization' do
+        it 'returns a list of unfulfilled helps with valid authorization' do
           @help_data['user_id'] = @user.id
+          @help_data['fulfilment_count'] = 5
           FactoryBot.create :help, @help_data
+          FactoryBot.create :help,  {user_id: @user.id, category_id: @category.id}
           get @help_url, headers: {'Authorization': 'Bearer ' + @token}
           expect(response).to have_http_status(:ok)
           help_object = JSON.parse(response.body)

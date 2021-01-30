@@ -1,5 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe HelpsChannel, type: :channel do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # it "have stream_from help_channel" do
+  #   have_stream_from 'help_channel'
+  # end
 end

@@ -1,6 +1,6 @@
 class Api::V1::HelpsController < AuthBaseController
   def index
-    @helps = Help.includes(:user, :category)
+    @helps = Help.active.includes(:user, :category)
     render json: @helps.as_json(include: {:user => {except: :password_digest}, :category => {only: [:name, :color]}}), status: :ok
   end
 
