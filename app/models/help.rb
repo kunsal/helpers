@@ -16,7 +16,9 @@ class Help < ApplicationRecord
     def mark_as_fulfilled
       if ((self.fulfilment_count == 5) && (self.status == false))
         self.status = true
-        self.save
+        if self.save
+          StatusChannel.broadcast_to self, {status: true}
+        end
       end
     end
 end
