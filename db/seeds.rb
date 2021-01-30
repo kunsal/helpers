@@ -8,5 +8,5 @@ Category.destroy_all
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Category.delete_all
-Category.create([{name: 'Monetary', color: 'blue'}, {name: 'Material', color: 'green'}])
+Category.create([{name: 'One Time Need', color: 'blue'}, {name: 'Material Need', color: 'green'}])
 
