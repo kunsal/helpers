@@ -3,7 +3,7 @@ class Help < ApplicationRecord
   belongs_to :category
   has_many :chats
 
-  scope :active, -> { where("fulfilment_count < 5") }
+  scope :active, -> { where("status = false").order(created_at: :desc).includes(:user, :category) }
 
   after_save :mark_as_fulfilled
 
@@ -18,6 +18,8 @@ class Help < ApplicationRecord
         self.status = true
         if self.save
           StatusChannel.broadcast_to self, {status: true}
+          @helps = Help.active
+          ActionCable.server.broadcast("help_list_channel", {helps: @helps.as_json(include: {:user => {except: :password_digest}, :category => {only: [:name, :color]}})})
         end
       end
     end
