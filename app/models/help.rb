@@ -3,7 +3,7 @@ class Help < ApplicationRecord
   belongs_to :category
   has_many :chats
 
-  scope :active, -> { where("status = 0").order(created_at: :desc).includes(:user, :category) }
+  scope :active, -> { where(status: 0).order(created_at: :desc).includes(:user, :category) }
 
   after_save :mark_as_fulfilled
 
