@@ -1,7 +1,7 @@
 class Api::V1::HelpsController < AuthBaseController
   def index
     @helps = Help.active
-    render json: @helps.as_json(include: {:user => {except: :password_digest}, :category => {only: [:name, :color]}}), status: :ok
+    render json: @helps.as_json(include: {:user => {except: [:password_digest, :government_id]}, :category => {only: [:name, :color]}}), status: :ok
   end
 
   def create
@@ -9,7 +9,7 @@ class Api::V1::HelpsController < AuthBaseController
     if @help.save
       ActionCable.server.broadcast("helps_channel_#{@help.id}", "#{@help.user.first_name} #{@help.user.first_name} just created new help #{@help.title}")
       helps = Help.active
-      ActionCable.server.broadcast("help_list_channel", {helps: helps.as_json(include: {:user => {except: :password_digest}, :category => {only: [:name, :color]}})})
+      ActionCable.server.broadcast("help_list_channel", {helps: helps.as_json(include: {:user => {except: [:password_digest, :government_id]}, :category => {only: [:name, :color]}})})
       render json: @help, status: :created
     else
       render json: @help.errors, status: :unprocessable_entity
