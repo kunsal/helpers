@@ -1,4 +1,4 @@
-Category.destroy_all
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -8,8 +8,14 @@ Category.destroy_all
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Category.delete_all
-category = Category.create([{name: 'One Time Need', color: 'blue'}, {name: 'Material Need', color: 'green'}])
-help = Help.find(1)
-help.category_id = category.first.id
-help.save
+if Rails.env == 'test'
+  Category.destroy_all
+  category = Category.create([{name: 'One Time Need', color: 'blue'}, {name: 'Material Need', color: 'green'}])
+end
+
+if Rails.env == 'production'
+  help = Help.find(1)
+  help.category_id = 2
+  help.save
+end
 
