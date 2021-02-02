@@ -82,7 +82,7 @@ describe 'Help' do
           FactoryBot.create :help, @help_data
           FactoryBot.create :help,  {user_id: @user.id, category_id: @category.id, long: 10.1, lat: 2.1}
           FactoryBot.create :help,  {user_id: @user.id, category_id: @category.id, long: 101.1, lat: 21.1}
-          get "#{@help_url}?coordinates=true&topLat=2&bottomLat=3&leftLong=10&rightLong=11", headers: {'Authorization': 'Bearer ' + @token}
+          get "#{@help_url}?coordinates=true&topLat=3&bottomLat=2&leftLong=10&rightLong=11", headers: {'Authorization': 'Bearer ' + @token}
           expect(response).to have_http_status(:ok)
           help_object = JSON.parse(response.body)
           expect(help_object.count).to eq 1
