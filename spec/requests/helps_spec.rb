@@ -10,7 +10,9 @@ describe 'Help' do
       description: 'This is a very good description',
       category_id: @category.id,
       user_id: 1,
-      location: '23.8, 109.02'
+      location: '23.8, 109.02',
+      long: 23.09,
+      lat: 109.02
     }
   end
 

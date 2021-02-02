@@ -9,7 +9,8 @@ class Help < ApplicationRecord
 
   validates :title, presence: true, length: {minimum: 6}
   validates :description, presence: true, length: {minimum: 20}
-  validates :location, presence: true, format: {with: /\A[0-9]+\.[0-9]+,\s*[0-9]+\.[0-9]+\Z/}
+  validates :long, presence: true, numericality: true
+  validates :lat, presence: true, numericality: true
   # validates :category_id, presence: true, format: {with: /\A[1-9]+\Z/}
   # validates :user_id, presence: true, format: {with: /\A[1-9]+\Z/}
   private

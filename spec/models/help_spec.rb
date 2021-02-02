@@ -25,13 +25,23 @@ describe 'Help', type: :model do
       expect(@help).to_not be_valid
     end
 
-    it 'ensures that location is present' do
-      @help.location = nil
+    it 'ensures that longitude is present' do
+      @help.long = nil
       expect(@help).to_not be_valid
     end
 
-    it 'ensures that location is of the format x,y' do
-      @help.location = '32.9'
+    it 'ensures that longitude is a float' do
+      @help.long = 'a32'
+      expect(@help).to_not be_valid
+    end
+
+    it 'ensures that latitude is present' do
+      @help.lat = nil
+      expect(@help).to_not be_valid
+    end
+
+    it 'ensures that latitude is a float' do
+      @help.lat = '3a2'
       expect(@help).to_not be_valid
     end
 

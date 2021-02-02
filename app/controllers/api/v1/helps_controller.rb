@@ -27,6 +27,6 @@ class Api::V1::HelpsController < AuthBaseController
   end
 
   private def help_params
-    params.permit(:title, :description, :category_id, :location, :status, :user_id)
+    params.permit(:title, :description, :category_id, :long, :lat, :status, :user_id)
   end
 end

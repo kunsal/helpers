@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_25_160044) do
+ActiveRecord::Schema.define(version: 2021_02_02_091801) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 2021_01_25_160044) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "category_id"
+    t.float "lat"
+    t.float "long"
     t.index ["category_id"], name: "index_helps_on_category_id"
     t.index ["user_id"], name: "index_helps_on_user_id"
   end
