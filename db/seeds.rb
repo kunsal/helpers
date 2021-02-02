@@ -15,7 +15,7 @@ end
 
 if Rails.env == 'production'
   help = Help.find(1)
-  help.category_id = 2
+  help.category_id = 4
   help.save
 end
 
