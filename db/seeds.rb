@@ -13,9 +13,9 @@ if Rails.env == 'test'
   category = Category.create([{name: 'One Time Need', color: 'blue'}, {name: 'Material Need', color: 'green'}])
 end
 
-if Rails.env == 'production'
-  help = Help.find(1)
-  help.category_id = 4
-  help.save
-end
+# if Rails.env == 'production'
+#   help = Help.find(1)
+#   help.category_id = 4
+#   help.save
+# end
 
