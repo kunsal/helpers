@@ -1,6 +1,10 @@
 class Api::V1::HelpsController < AuthBaseController
   def index
-    @helps = Help.active
+    if params[:coordinates]
+      @helps = Help.by_coordinates(params[:leftLong], params[:rightLong], params[:topLat], params[:bottomLat]).active
+    else
+      @helps = Help.active
+    end
     render json: @helps.as_json(include: {:user => {except: [:password_digest, :government_id]}, :category => {only: [:name, :color]}}), status: :ok
   end
 

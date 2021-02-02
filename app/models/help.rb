@@ -4,7 +4,7 @@ class Help < ApplicationRecord
   has_many :chats
 
   scope :active, -> { where(status: 0).order(created_at: :desc).includes(:user, :category) }
-
+  scope :by_coordinates, ->(leftLong, rightLong, topLat, bottomLat) { where('long between ? and ? and lat between ? and ?', leftLong.to_f, rightLong.to_f, bottomLat.to_f, topLat.to_f)}
   after_save :mark_as_fulfilled
 
   validates :title, presence: true, length: {minimum: 6}
