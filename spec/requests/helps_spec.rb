@@ -93,7 +93,7 @@ describe 'Help' do
         it 'returns help by id' do
           @help_data['user_id'] = @user.id
           FactoryBot.create :help, @help_data
-          get @help_url + '/' + @help_data['id'].to_s, headers: {'Authorization': 'Bearer ' + @token}
+          get "#{@help_url}/#{@help_data['id']}", headers: {'Authorization': 'Bearer ' + @token}
           expect(response).to have_http_status(:ok)
           help_object = JSON.parse(response.body)
           expect(help_object.first.keys).to include("title", "user", "category")
