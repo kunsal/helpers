@@ -30,6 +30,15 @@ class Api::V1::HelpsController < AuthBaseController
     render json: @helps.as_json(include: {:category => {only: [:name, :color]}}), status: :ok
   end
 
+  def reopen
+    help = Help.find(params[:id])
+    help.fulfilment_count = 4
+    help.status = false
+    if help.save
+      render json: {message: 'Help reopoened successfully'}, status: :created
+    end
+  end
+
   private def help_params
     params.permit(:title, :description, :category_id, :long, :lat, :status, :user_id)
   end

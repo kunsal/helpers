@@ -125,4 +125,17 @@ describe 'Help' do
       end
     end
   end
+  it 'should turn help status to false and fulfilment_count to 4' do
+    user = FactoryBot.create(:user)
+    token = TokenHelper.generate(user)
+    @help_data['fulfilment_count'] = 5
+    @help_data['status'] = true
+    @help_data['user_id'] = user.id
+    help = FactoryBot.create(:help, @help_data)
+    post '/api/v1/helps/reopen', params: {id: help.id}, headers: {'Authorization': 'Bearer ' + token}
+    expect(response).to have_http_status :created
+    saved_help = Help.find(help.id)
+    expect(saved_help.status).to be(false)
+    expect(saved_help.fulfilment_count).to be(4)
+  end
 end

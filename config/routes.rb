@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post 'login', to: 'auth#login'
       get 'profile', to: 'profile#index'
       get 'helps/me', to: 'helps#me'
+      post 'helps/reopen', to: 'helps#reopen'
       resources :helps, only: ['create', 'index', 'show']
       resources :categories, only: ['index', 'show']
       get 'categories/:id/helps', to: 'categories#helps'
